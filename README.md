@@ -63,15 +63,3 @@ Option| Type | Default | Required | Description
 ### Destroy notice
 
 `destroy()` - Destroy notice. It removes all related events.
-
-### Check notice is initialized or not
-
-`getIsInitialized()` - Check accordion is initialized or not. It returns `true` when it is already initialized, `false` if not.
-
-### Check notice is opened or not
-
-`getIsOpened()` - Check accordion is opened or not. It returns `true` when it is already opened, `false` if not.
-
-### Check notice is accepted or not
-
-`getIsAccepted()` - Check accordion is accepted or not. It returns `true` when it is already accepted, `false` if not.

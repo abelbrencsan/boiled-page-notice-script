@@ -1,6 +1,6 @@
 /**
- * Notice - v1.0.0
- * Copyright 2020 Abel Brencsan
+ * Notice - v1.1.0
+ * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
 
@@ -133,34 +133,6 @@ Notice.prototype = function () {
 			if(this.acceptTrigger) this.acceptTrigger.removeEventListener('click', this);
 			this.isInitialized = false;
 			if (this.destroyCallback) this.destroyCallback.call(this);
-		},
-
-		/**
-		 * Get value of "isInitialized" to be able to check notice is initialized or not. (public)
-		 */
-		getIsInitialized: function() {
-			return this.isInitialized;
-		},
-
-		/**
-		 * Get value of "isOpened" to be able to check notice is opened or not. (public)
-		 */
-		getIsOpened: function() {
-			return this.isOpened;
-		},
-
-		/**
-		 * Get value of "isAccepted" to be able to check notice is accepted or not. (public)
-		 */
-		getIsAccepted: function() {
-			return this.isAccepted;
-		},
-
-		/**
-		 * Get value of "isDismissed" to be able to check notice is dismissed or not. (public)
-		 */
-		getIsDismissed: function() {
-			return this.isDismissed;
 		}
 	};
 
@@ -169,11 +141,7 @@ Notice.prototype = function () {
 		close: notice.close,
 		dismiss: notice.dismiss,
 		accept: notice.accept,
-		destroy: notice.destroy,
-		getIsInitialized: notice.getIsInitialized,
-		getIsOpened: notice.getIsOpened,
-		getIsAccepted: notice.getIsAccepted,
-		getIsDismissed: notice.getIsDismissed
+		destroy: notice.destroy
 	};
 
 }();
