@@ -30,6 +30,7 @@ Option| Type | Default | Required | Description
 `element` | Object | null | Yes | Wrapper element that contains content of the notice.
 `dismissTrigger` | Object | null | No | Element that dismisses notice on click.
 `acceptTrigger` | Object | null | No | Element that accepts notice on click.
+`collapseOnClose` | Object | null | No | Set maximum height to 0 on close for collapse transition.
 `initCallback` | Function | null | No | Callback function after notice is initialized.
 `dismissCallback` | Function | null | No | Callback function after notice is dismissed.
 `acceptCallback` | Function | null | No | Callback function after notice is accepted.

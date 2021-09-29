@@ -1,5 +1,5 @@
 /**
- * Notice - v1.1.0
+ * Notice - v1.2.0
  * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
@@ -16,6 +16,7 @@ var Notice = function(options) {
 		element: null,
 		dismissTrigger: null,
 		acceptTrigger: null,
+		collapseOnClose: false,
 		initCallback: null,
 		dismissCallback: null,
 		acceptCallback: null,
@@ -64,8 +65,19 @@ Notice.prototype = function () {
 		* Close notice, call remove() method after closing animation is finished. (public)
 		*/
 		close: function() {
+			var element = this.element;
+			var isClosingClass = this.isClosingClass;
 			this.isOpened = false;
-			this.element.classList.add(this.isClosingClass);
+			if (this.collapseOnClose) {
+				element.style.maxHeight = this.element.scrollHeight + 'px';
+				setTimeout(function() {
+					element.classList.add(isClosingClass);
+					element.style.maxHeight = 0;
+				}, 100);
+			}
+			else {
+				element.classList.add(isClosingClass);
+			}
 			if (this.closeCallback) this.closeCallback.call(this);
 		},
 
