@@ -1,22 +1,22 @@
 /**
- * Notice - v1.2.0
- * Copyright 2021 Abel Brencsan
+ * Notice
+ * Copyright 2024 Abel Brencsan
  * Released under the MIT License
  */
-
-var Notice = function(options) {
+const Notice = function(options) {
 
 	'use strict';
 
 	// Test required options
-	if (typeof options.element !== 'object') throw 'Dismiss "element" option must be an object';
+	if (!(options.element instanceof HTMLElement)) {
+		throw 'Notice "element" must be an `HTMLElement`';
+	}
 
 	// Default notice instance options
-	var defaults = {
+	let defaults = {
 		element: null,
 		dismissTrigger: null,
 		acceptTrigger: null,
-		collapseOnClose: false,
 		initCallback: null,
 		dismissCallback: null,
 		acceptCallback: null,
@@ -27,7 +27,7 @@ var Notice = function(options) {
 	};
 
 	// Extend notice instance options with defaults
-	for (var key in defaults) {
+	for (let key in defaults) {
 		this[key] = (options.hasOwnProperty(key)) ? options[key] : defaults[key];
 	}
 
@@ -44,10 +44,13 @@ Notice.prototype = function () {
 
 	'use strict';
 
-	var notice = {
+	let notice = {
 
 		/**
-		* Initialize notice. It adds events to handle notice. (public)
+		* Initialize notice.
+		* It adds events to handle notice.
+		* 
+		* @public
 		*/
 		init: function() {
 			if (this.isInitialized) return;
@@ -62,27 +65,21 @@ Notice.prototype = function () {
 		},
 
 		/**
-		* Close notice, call remove() method after closing animation is finished. (public)
+		* Close notice.
+		* Notice is removed from the DOM after closing transition is finished.
+		* 
+		* @public
 		*/
 		close: function() {
-			var element = this.element;
-			var isClosingClass = this.isClosingClass;
 			this.isOpened = false;
-			if (this.collapseOnClose) {
-				element.style.maxHeight = this.element.scrollHeight + 'px';
-				setTimeout(function() {
-					element.classList.add(isClosingClass);
-					element.style.maxHeight = 0;
-				}, 100);
-			}
-			else {
-				element.classList.add(isClosingClass);
-			}
+			this.element.classList.add(this.isClosingClass);
 			if (this.closeCallback) this.closeCallback.call(this);
 		},
 
 		/**
-		* Remove notice from the DOM. (private)
+		* Remove notice from the DOM.
+		* 
+		* @private
 		*/
 		remove: function() {
 			if (this.isRemoved) return;
@@ -92,7 +89,9 @@ Notice.prototype = function () {
 		},
 
 		/**
-		* Set notice as dismissed. (public)
+		* Set notice as dismissed.
+		* 
+		* @public
 		*/
 		dismiss: function() {
 			if (!this.isOpened) return;
@@ -102,7 +101,9 @@ Notice.prototype = function () {
 		},
 
 		/**
-		* Set notice as accepted. (public)
+		* Set notice as accepted.
+		* 
+		* @public
 		*/
 		accept: function() {
 			if (!this.isOpened) return;
@@ -112,10 +113,12 @@ Notice.prototype = function () {
 		},
 
 		/**
-		* Handle events. (private)
+		* Handle events.
 		* On accept or dismiss trigger click: accept or dismiss notice.
 		* On transition end: Remove notice after closing transition ended.
-		* @param event object
+		* 
+		* @private
+		* @param {Event} event
 		*/
 		handleEvents: function(event) {
 			switch(event.type) {
@@ -136,7 +139,10 @@ Notice.prototype = function () {
 		},
 
 		/**
-		* Destroy notice. It removes all related events. (public)
+		* Destroy notice.
+		* It removes all related events.
+		* 
+		* @public
 		*/
 		destroy: function() {
 			if (!this.isInitialized) return;

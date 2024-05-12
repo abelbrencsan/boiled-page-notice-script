@@ -47,7 +47,7 @@ Option| Type | Default | Required | Description
 
 ### Close notice
 
-`close()` - Close notice, call `remove()` method after closing animation is finished.
+`close()` - Close notice. Notice is removed from the DOM after closing transition is finished.
 
 ### Remove notice
 
