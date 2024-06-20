@@ -43,11 +43,11 @@ Option| Type | Default | Required | Description
 
 ### Initialize notice
 
-`init()` - Initialize notice. It adds events to handle notice.
+`init()` - Initialize notice.
 
 ### Close notice
 
-`close()` - Close notice. Notice is removed from the DOM after closing transition is finished.
+`close()` - Close notice.
 
 ### Remove notice
 
@@ -63,4 +63,4 @@ Option| Type | Default | Required | Description
 
 ### Destroy notice
 
-`destroy()` - Destroy notice. It removes all related events.
+`destroy()` - Destroy notice.

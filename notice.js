@@ -15,6 +15,7 @@ const Notice = function(options) {
 	// Default notice instance options
 	let defaults = {
 		element: null,
+		autoclose: null,
 		dismissTrigger: null,
 		acceptTrigger: null,
 		initCallback: null,
@@ -48,7 +49,6 @@ Notice.prototype = function () {
 
 		/**
 		* Initialize notice.
-		* It adds events to handle notice.
 		* 
 		* @public
 		*/
@@ -60,13 +60,17 @@ Notice.prototype = function () {
 			this.element.addEventListener('transitionend', this);
 			if(this.dismissTrigger) this.dismissTrigger.addEventListener('click', this);
 			if(this.acceptTrigger) this.acceptTrigger.addEventListener('click', this);
+			if (this.autoclose) {
+				setTimeout(() => {
+					notice.close.call(this);
+				}, this.autoclose);
+			}
 			this.isInitialized = true;
 			if (this.initCallback) this.initCallback.call(this);
 		},
 
 		/**
 		* Close notice.
-		* Notice is removed from the DOM after closing transition is finished.
 		* 
 		* @public
 		*/
@@ -83,7 +87,11 @@ Notice.prototype = function () {
 		*/
 		remove: function() {
 			if (this.isRemoved) return;
+			if (this.isOpened) return;
 			this.isRemoved = true;
+			this.element.removeEventListener('transitionend', this);
+			if(this.dismissTrigger) this.dismissTrigger.removeEventListener('click', this);
+			if(this.acceptTrigger) this.acceptTrigger.removeEventListener('click', this);
 			this.element.parentElement.removeChild(this.element);
 			if (this.removeCallback) this.removeCallback.call(this);
 		},
@@ -115,7 +123,7 @@ Notice.prototype = function () {
 		/**
 		* Handle events.
 		* On accept or dismiss trigger click: accept or dismiss notice.
-		* On transition end: Remove notice after closing transition ended.
+		* On transition end: Remove notice from the DOM after closing transition ended.
 		* 
 		* @private
 		* @param {Event} event
@@ -140,7 +148,6 @@ Notice.prototype = function () {
 
 		/**
 		* Destroy notice.
-		* It removes all related events.
 		* 
 		* @public
 		*/
